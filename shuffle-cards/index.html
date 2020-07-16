@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+html { font-size: 25px; }
+body { padding: 1rem; 
+background-color: #EFEFEF;
+}
+
+.button {
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 22px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #72C3DC;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 6px #999;
+}
+
+.button:hover {background-color: #2B8EAD}
+
+.button:active {
+  background-color: #2B8EAD;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+.card {
+  background-color: dodgerblue;
+  color: white;
+  font-weight: bolder;
+  padding: 2rem;
+  text-align: center;
+  height: 4rem;
+}
+
+
+
+/* Screen larger than 375px? 2 column */
+@media (max-width: 375px) {
+    body { padding: 1rem; 
+    background-color: black;
+        }
+  .cards { 
+      grid-template-columns: repeat(1, 1fr); 
+      min-width: 375px;
+      }
+
+      card::before {
+    left: 0;
+    background-color: green;      
+   }
+}
+
+/* Screen larger than 960px? 3 columns */
+@media (min-width: 960px) {
+
+
+    .cards {
+    grid-template-columns: repeat(3, 1fr); 
+  min-width: 600px;
+  margin: 0 auto;
+  display: grid; 
+}
+}
+
+</style>
+</head>
+<body>
+    <div style="float: right; margin-bottom: 10px;">
+        <button class="button" onclick="shuffle()">SHUFFLE</button>
+        <button class="button" onClick="reset()">SORT</button>
+    </div>
+    <div class="cards" id="container" style="float: left;">
+        <div class="card" style="background-color: #72C3DC;">1</div>
+        <div class="card" style="background-color: #2B8EAD;">2</div>
+        <div class="card" style="background-color: #000000;">3</div>
+        <div class="card" style="background-color: #2B8EAD;">4</div>
+        <div class="card" style="background-color: #000000;">5</div>
+        <div class="card" style="background-color: #BFBFBF;">6</div>
+        <div class="card" style="background-color: #BFBFBF;">7</div>
+        <div class="card" style="background-color: #72C3DC;">8</div>
+        <div class="card" style="background-color: #000000;">9</div>  
+      </div>
+
+      <div id="holder"></div>
+</body>
+
+<script>
+var container = document.getElementById("container");
+var originalArray = Array.prototype.slice.call(container.getElementsByClassName('card'));    
+    function reset() {     
+        originalArray.forEach(function(element){
+        container.removeChild(element);
+      })  
+      originalArray.forEach(function(element){
+      container.appendChild(element);
+    })
+    }
+
+function shuffle() { 
+  var elementsArray = Array.prototype.slice.call(container.getElementsByClassName('card'));
+	elementsArray.forEach(function(element){
+  	container.removeChild(element);
+  }) 
+  shuffleArray(elementsArray);
+  elementsArray.forEach(function(element){
+  container.appendChild(element);
+})
+}
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+    return array;
+}
+</script>
+</html> 
